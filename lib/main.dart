@@ -10,7 +10,8 @@ void main() async {
   await Firebase.initializeApp();
   runApp(
     GetMaterialApp(
-      title: "Application",
+      title: "Edu Care",
+      debugShowCheckedModeBanner: false,
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
     ),

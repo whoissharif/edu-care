@@ -14,15 +14,19 @@ class AppPages {
   static const INITIAL = Routes.AUTH;
 
   static final routes = [
-  
     GetPage(
       name: _Paths.AUTH,
-      page: () => const AuthView(),
+      page: () => AuthView(),
+      binding: AuthBinding(),
+    ),
+     GetPage(
+      name: _Paths.AUTH,
+      page: () => AuthView(),
       binding: AuthBinding(),
     ),
     GetPage(
       name: _Paths.DASHBOARD,
-      page: () => const DashboardView(),
+      page: () => DashboardView(),
       binding: DashboardBinding(),
     ),
     GetPage(
