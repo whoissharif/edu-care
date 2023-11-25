@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1072088458173",
+    "project_id": "edu-care-67dd6",
+    "storage_bucket": "edu-care-67dd6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1072088458173:android:36f5f84c0294986191e8d4",
+        "android_client_info": {
+          "package_name": "com.example.edu_care"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLaRtVM00wxiISI35u0_U-zs_r8KSK7nM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
