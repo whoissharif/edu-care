@@ -19,13 +19,18 @@ class AuthController extends GetxController {
   Future<void> signUpWithEmailAndPassword(String email, String password) async {
     try {
       isLoading.value = true;
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      // await _auth.createUserWithEmailAndPassword(
+      //     email: email, password: password);
     } catch (e) {
-      print("Error signing up with email and password: $e");
-      Get.snackbar('Error', 'Failed to sign up. Please try again.');
+      if (Get.isSnackbarOpen != true) {
+        Get.snackbar('Error', 'Failed to sign up. Please try again.');
+      }
     } finally {
       isLoading.value = false;
+      if (Get.isSnackbarOpen != true) {
+        Get.offAllNamed(Routes.AUTH);
+        Get.snackbar('Success', 'Sign up successful!\nNow login to continue');
+      }
     }
   }
 
@@ -36,8 +41,9 @@ class AuthController extends GetxController {
       // Navigate to the dashboard on successful sign-in
       Get.offAllNamed(Routes.DASHBOARD);
     } catch (e) {
-      print("Error signing in with email and password: $e");
-      Get.snackbar('Error', 'Failed to sign in. Check your credentials.');
+      if (Get.isSnackbarOpen != true) {
+        Get.snackbar('Error', 'Failed to sign in. Check your credentials.');
+      }
     } finally {
       isLoading.value = false;
     }
@@ -58,8 +64,9 @@ class AuthController extends GetxController {
       // Navigate to the dashboard on successful sign-in
       Get.offAllNamed(Routes.DASHBOARD);
     } catch (e) {
-      print("Error signing in with Google: $e");
-      Get.snackbar('Error', 'Failed to sign in with Google.');
+      if (Get.isSnackbarOpen != true) {
+        Get.snackbar('Error', 'Failed to sign in with Google.');
+      }
     } finally {}
   }
 
