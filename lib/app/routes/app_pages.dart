@@ -19,7 +19,7 @@ class AppPages {
       page: () => AuthView(),
       binding: AuthBinding(),
     ),
-     GetPage(
+    GetPage(
       name: _Paths.AUTH,
       page: () => AuthView(),
       binding: AuthBinding(),
@@ -31,7 +31,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.COURSE_PLAYER,
-      page: () => const CoursePlayerView(),
+      page: () => CoursePlayerView(),
       binding: CoursePlayerBinding(),
     ),
   ];

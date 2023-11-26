@@ -1,7 +1,7 @@
+import 'package:edu_care/app/routes/app_pages.dart';
 import 'package:edu_care/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:edu_care/app/modules/auth/views/register_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../controllers/auth_controller.dart';
 import 'widgets/animated_button.dart';
@@ -141,7 +141,7 @@ class _AuthViewState extends State<AuthView> {
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        Get.to(() => const RegisterView());
+                        Get.toNamed(Routes.REGISTER);
                       },
                       child: const Text(
                         'Sign up',
