@@ -8,50 +8,72 @@ List<Course> courses = [
     cover:
         'https://interactivecares-courses.com/wp-content/uploads/2023/10/website.png',
     level: 'Intermediate',
-    totalLessons: '45 Lessons',
+    totalModule: '45 Lessons',
     length: '26 Hours',
     modules: [
       Module(
-        title: 'Getting Started',
-        description: 'Overview of Flutter and Dart.',
-        lessons: [
-          Lesson(
-            title: 'Setting Up Flutter',
-            description: 'Installing and configuring Flutter on your machine.',
-            videoUrl:
-                'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4',
-          ),
-          Lesson(
-            title: 'Introduction to Dart',
-            description:
-                'Understanding the basics of the Dart programming language.',
-            videoUrl:
-                'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4',
-          ),
-          // Add more lessons as needed
-        ],
+        id: '1',
+        title: 'Module 1',
+        description: 'Module Desc 1',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
       ),
       Module(
-        title: 'Building UIs',
-        description: 'Creating user interfaces with Flutter.',
-        lessons: [
-          Lesson(
-            title: 'Layouts and Widgets',
-            description: 'Exploring different layouts and widgets in Flutter.',
-            videoUrl:
-                'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4',
-          ),
-          Lesson(
-            title: 'Styling in Flutter',
-            description: 'Applying styles to create visually appealing UIs.',
-            videoUrl:
-                'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4',
-          ),
-          // Add more lessons as needed
-        ],
+        id: '2',
+        title: 'Module 2',
+        description: 'Module Desc 2',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
       ),
-      // Add more modules as needed
+      Module(
+        id: '3',
+        title: 'Module 3',
+        description: 'Module Desc 3',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
+      ),
+      Module(
+        id: '4',
+        title: 'Module 4',
+        description: 'Module Desc 4',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
+      ),
+      Module(
+        id: '5',
+        title: 'Module 5',
+        description: 'Module Desc 5',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
+      ),
+      Module(
+        id: '6',
+        title: 'Module 6',
+        description: 'Module Desc 6',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
+      ),
+      Module(
+        id: '7',
+        title: 'Module 7',
+        description: 'Module Desc 7',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
+      ),
+      Module(
+        id: '8',
+        title: 'Module 8',
+        description: 'Module Desc 8',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
+      ),
+      Module(
+        id: '9',
+        title: 'Module 9',
+        description: 'Module Desc 9',
+        videoUrl:
+            'https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_10mb.mp4',
+      ),
     ],
   ),
-  // Add more courses as needed
 ];

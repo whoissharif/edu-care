@@ -110,7 +110,7 @@ class DashboardView extends GetView<DashboardController> {
                               width: 8,
                             ),
                             Text(
-                              courses[index].totalLessons,
+                              courses[index].totalModule,
                               style: const TextStyle(
                                 color: secondaryTextColor,
                               ),

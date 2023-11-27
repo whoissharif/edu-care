@@ -19,8 +19,8 @@ class AuthController extends GetxController {
   Future<void> signUpWithEmailAndPassword(String email, String password) async {
     try {
       isLoading.value = true;
-      // await _auth.createUserWithEmailAndPassword(
-      //     email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
     } catch (e) {
       if (Get.isSnackbarOpen != true) {
         Get.snackbar('Error', 'Failed to sign up. Please try again.');
