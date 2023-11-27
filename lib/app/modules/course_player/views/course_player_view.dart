@@ -1,4 +1,5 @@
 import 'package:edu_care/app/data/models/course.dart';
+import 'package:edu_care/app/modules/course_player/views/widgets/player_button.dart';
 import 'package:edu_care/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class CoursePlayerView extends GetView<CoursePlayerController> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
+            flex: 2,
             child: VideoPlayerWidget(
               controller: playerController.videoPlayerController,
             ),
@@ -33,6 +35,7 @@ class CoursePlayerView extends GetView<CoursePlayerController> {
 
           // Module list
           Expanded(
+            flex: 4,
             child: ListView.builder(
               itemCount: playerController.course.modules.length,
               itemBuilder: (context, index) {
@@ -50,43 +53,69 @@ class CoursePlayerView extends GetView<CoursePlayerController> {
                       playerController.currentModuleIndex.value = index;
                       playerController.updateVideoPlayer();
                     },
+                    trailing: playerController.currentModuleIndex.value == index
+                        ? IconButton(
+                            onPressed: () {
+                              var a =
+                                  playerController.getModuleBookmarks(module.id);
+                              print(a.map((e) => e.positionInSeconds));
+                            },
+                            icon: const Icon(Icons.bookmarks))
+                        : const SizedBox(),
                   ),
                 );
               },
             ),
           ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                icon: Icon(Icons.bookmark),
-                onPressed: () {
-                  // Bookmark the current time in the video
-                },
-              ),
-            ],
-          ),
-
           // Next and Previous buttons
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  playerController.previousModule();
-                },
-                child: Text('Previous Module'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  playerController.nextModule();
-                },
-                child: Text('Next Module'),
-              ),
-            ],
+          Container(
+            decoration: const BoxDecoration(
+              color: primaryTextColor,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: PlayerButton(
+                    onTap: () {
+                      playerController.previousModule();
+                    },
+                    title: 'Previous',
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                  child: VerticalDivider(
+                    color: Colors.white,
+                    width: 20,
+                    thickness: 1,
+                  ),
+                ),
+                Expanded(
+                  child: PlayerButton(
+                    onTap: () {
+                      playerController.nextModule();
+                    },
+                    title: 'Next',
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
+      ),
+      floatingActionButtonLocation:
+          FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          playerController.bookmarkCurrentTime();
+        },
+        backgroundColor: primaryColor,
+        child: const Icon(
+          Icons.bookmark_add_outlined,
+          color: Colors.white,
+        ),
       ),
     );
   }

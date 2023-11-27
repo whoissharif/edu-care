@@ -28,7 +28,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     //     VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl));
     _chewieController = ChewieController(
       videoPlayerController: widget.controller,
-      aspectRatio: 16 / 9, // Adjust based on your video aspect ratio
+      aspectRatio: 16/9, // Adjust based on your video aspect ratio
       autoPlay: true,
       looping: false,
       // Other ChewieController configurations as needed
