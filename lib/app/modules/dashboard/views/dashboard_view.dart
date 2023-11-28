@@ -145,6 +145,11 @@ class DashboardView extends GetView<DashboardController> {
                     ),
                     ContinueCourseButton(
                       onTap: () {
+                        // Get.put(CoursePlayerController())
+                        //     .setSelectedCourse(courses[index]);
+                        // final controller = Get.find<CoursePlayerController>();
+                        // controller.resetState(courses[index]);
+
                         Get.toNamed(
                           Routes.COURSE_PLAYER,
                           arguments: courses[index],

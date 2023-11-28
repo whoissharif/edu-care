@@ -21,10 +21,27 @@ class CoursePlayerController extends GetxController {
     super.onInit();
     // Initializing course
     course = courses.first;
-
     // Initialize the video player
     _initializeVideoPlayer();
   }
+
+  // void setSelectedCourse(Course selectedCourse) {
+  //   course = selectedCourse;
+  //   currentModuleIndex.value = 0;
+  //   _initializeVideoPlayer();
+  // }
+
+  // void resetState(Course newCourse) {
+  //   // Dispose of the current video player controller
+  //   videoPlayerController.dispose();
+
+  //   // Reset other state variables
+  //   currentModuleIndex.value = 0;
+
+  //   // Initialize the new course and video player controller
+  //   course = newCourse;
+  //   _initializeVideoPlayer();
+  // }
 
   void _initializeVideoPlayer() {
     if (!videoPlayerController.value.isInitialized) {
@@ -63,10 +80,47 @@ class CoursePlayerController extends GetxController {
     }
   }
 
+  // void updateVideoPlayer() {
+  //   if (videoPlayerController.value.isInitialized) {
+  //     videoPlayerController.pause();
+  //     videoPlayerController.seekTo(Duration.zero);
+
+  //     final module = course.modules[currentModuleIndex.value];
+  //     print(
+  //         'Updating video player for module: ${module.title}, URL: ${module.videoUrl}');
+
+  //     // Update the existing controller with the new video URL
+  //     videoPlayerController =
+  //         VideoPlayerController.networkUrl(Uri.parse(module.videoUrl))
+  //           ..initialize().then((_) {
+  //             videoPlayerController.play();
+  //             update();
+  //           });
+  //   }
+  // }
+
+  // void updateVideoPlayer() {
+  //   if (videoPlayerController.value.isInitialized) {
+  //     videoPlayerController.pause();
+  //     videoPlayerController.seekTo(Duration.zero);
+
+  //     final module = course.modules[currentModuleIndex.value];
+  //     print(
+  //         'Updating video player for module: ${module.title}, URL: ${module.videoUrl}');
+
+  //     // Update the existing controller with the new video URL
+  //     videoPlayerController = VideoPlayerController.networkUrl(
+  //       Uri.parse(module.videoUrl),
+  //     );
+
+  //     // Notify listeners
+  //     update();
+  //   }
+  // }
+
   void updateVideoPlayer() {
     videoPlayerController.pause();
     videoPlayerController.seekTo(Duration.zero);
-    // videoPlayerController.seekTo(Duration(seconds: getBookmarkedTime()));
     videoPlayerController.play();
     update();
   }
@@ -103,7 +157,7 @@ class CoursePlayerController extends GetxController {
   List<Bookmark> getModuleBookmarks(String moduleId) {
     final key = 'bookmark_${course.id}_$moduleId';
     final existingBookmarks = box.read<List<dynamic>>(key) ?? [];
-    
+
     final bookmarks = existingBookmarks
         .map((bookmarkMap) =>
             Bookmark.fromJson(jsonDecode(bookmarkMap as String)))

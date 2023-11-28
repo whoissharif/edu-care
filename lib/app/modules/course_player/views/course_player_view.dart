@@ -12,8 +12,7 @@ class CoursePlayerView extends GetView<CoursePlayerController> {
   CoursePlayerView({Key? key}) : super(key: key);
   final Course course = Get.arguments;
 
-  final CoursePlayerController playerController =
-      Get.find<CoursePlayerController>();
+  final CoursePlayerController playerController = Get.find();
 
   // Format duration to a readable format
   String formatDuration(int seconds) {

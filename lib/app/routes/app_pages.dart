@@ -1,3 +1,4 @@
+import 'package:edu_care/app/modules/auth/views/register_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/auth/bindings/auth_binding.dart';
@@ -20,8 +21,8 @@ class AppPages {
       binding: AuthBinding(),
     ),
     GetPage(
-      name: _Paths.AUTH,
-      page: () => AuthView(),
+      name: _Paths.REGISTER,
+      page: () => RegisterView(),
       binding: AuthBinding(),
     ),
     GetPage(
