@@ -9,6 +9,7 @@ import '../../../data/course_data.dart';
 import '../../../data/models/bookmark.dart';
 import '../../../data/models/course.dart';
 
+/// Controller for managing the course player functionality.
 class CoursePlayerController extends GetxController {
   final box = GetStorage();
   late Course course;
@@ -25,24 +26,7 @@ class CoursePlayerController extends GetxController {
     _initializeVideoPlayer();
   }
 
-  // void setSelectedCourse(Course selectedCourse) {
-  //   course = selectedCourse;
-  //   currentModuleIndex.value = 0;
-  //   _initializeVideoPlayer();
-  // }
-
-  // void resetState(Course newCourse) {
-  //   // Dispose of the current video player controller
-  //   videoPlayerController.dispose();
-
-  //   // Reset other state variables
-  //   currentModuleIndex.value = 0;
-
-  //   // Initialize the new course and video player controller
-  //   course = newCourse;
-  //   _initializeVideoPlayer();
-  // }
-
+  /// Initialize the video player with the first module's video URL.
   void _initializeVideoPlayer() {
     if (!videoPlayerController.value.isInitialized) {
       videoPlayerController = VideoPlayerController.networkUrl(
@@ -58,66 +42,30 @@ class CoursePlayerController extends GetxController {
     }
   }
 
+  /// Seek to a specific time in the video.
   void seekToSpecicTime(int seconds) {
     videoPlayerController.seekTo(
       Duration(seconds: seconds),
     );
   }
 
+  /// Move to the next module in the course.
   void nextModule() {
     if (currentModuleIndex.value < course.modules.length - 1) {
       currentModuleIndex.value++;
-
       updateVideoPlayer();
     }
   }
 
+  /// Move to the previous module in the course.
   void previousModule() {
     if (currentModuleIndex.value > 0) {
       currentModuleIndex.value--;
-
       updateVideoPlayer();
     }
   }
 
-  // void updateVideoPlayer() {
-  //   if (videoPlayerController.value.isInitialized) {
-  //     videoPlayerController.pause();
-  //     videoPlayerController.seekTo(Duration.zero);
-
-  //     final module = course.modules[currentModuleIndex.value];
-  //     print(
-  //         'Updating video player for module: ${module.title}, URL: ${module.videoUrl}');
-
-  //     // Update the existing controller with the new video URL
-  //     videoPlayerController =
-  //         VideoPlayerController.networkUrl(Uri.parse(module.videoUrl))
-  //           ..initialize().then((_) {
-  //             videoPlayerController.play();
-  //             update();
-  //           });
-  //   }
-  // }
-
-  // void updateVideoPlayer() {
-  //   if (videoPlayerController.value.isInitialized) {
-  //     videoPlayerController.pause();
-  //     videoPlayerController.seekTo(Duration.zero);
-
-  //     final module = course.modules[currentModuleIndex.value];
-  //     print(
-  //         'Updating video player for module: ${module.title}, URL: ${module.videoUrl}');
-
-  //     // Update the existing controller with the new video URL
-  //     videoPlayerController = VideoPlayerController.networkUrl(
-  //       Uri.parse(module.videoUrl),
-  //     );
-
-  //     // Notify listeners
-  //     update();
-  //   }
-  // }
-
+  /// Update the video player with the current module's video URL.
   void updateVideoPlayer() {
     videoPlayerController.pause();
     videoPlayerController.seekTo(Duration.zero);
@@ -125,6 +73,7 @@ class CoursePlayerController extends GetxController {
     update();
   }
 
+  /// Bookmark the current time in the video.
   void bookmarkCurrentTime() {
     final currentTime = videoPlayerController.value.position.inSeconds;
     final bookmark = Bookmark(
@@ -154,6 +103,7 @@ class CoursePlayerController extends GetxController {
     }
   }
 
+  /// Retrieve bookmarks for a specific module.
   List<Bookmark> getModuleBookmarks(String moduleId) {
     final key = 'bookmark_${course.id}_$moduleId';
     final existingBookmarks = box.read<List<dynamic>>(key) ?? [];
