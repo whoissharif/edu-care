@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:get_storage/get_storage.dart';
@@ -38,6 +39,12 @@ class CoursePlayerController extends GetxController {
       videoPlayerController.play();
       update();
     }
+  }
+
+  void seekToSpecicTime(int seconds) {
+    videoPlayerController.seekTo(
+      Duration(seconds: seconds),
+    );
   }
 
   void nextModule() {
@@ -83,22 +90,27 @@ class CoursePlayerController extends GetxController {
     box.write(key, existingBookmarks);
 
     update();
-
-    Get.snackbar('Bookmark Added', 'Bookmark added successfully.');
+    if (Get.isSnackbarOpen != true) {
+      Get.snackbar(
+        'Bookmark Added',
+        'Bookmark added successfully.',
+        backgroundColor: Colors.white,
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 
-List<Bookmark> getModuleBookmarks(String moduleId) {
-  final key = 'bookmark_${course.id}_$moduleId';
-  final existingBookmarks = box.read<List<dynamic>>(key) ?? [];
+  List<Bookmark> getModuleBookmarks(String moduleId) {
+    final key = 'bookmark_${course.id}_$moduleId';
+    final existingBookmarks = box.read<List<dynamic>>(key) ?? [];
+    
+    final bookmarks = existingBookmarks
+        .map((bookmarkMap) =>
+            Bookmark.fromJson(jsonDecode(bookmarkMap as String)))
+        .toList();
 
-  // Convert each bookmark map back to a Bookmark object
-  final bookmarks = existingBookmarks
-      .map((bookmarkMap) =>
-          Bookmark.fromJson(jsonDecode(bookmarkMap as String)))
-      .toList();
-
-  return bookmarks;
-}
+    return bookmarks;
+  }
 
   @override
   void onClose() {

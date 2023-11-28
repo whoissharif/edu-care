@@ -15,6 +15,17 @@ class CoursePlayerView extends GetView<CoursePlayerController> {
   final CoursePlayerController playerController =
       Get.find<CoursePlayerController>();
 
+  // Format duration to a readable format
+  String formatDuration(int seconds) {
+    final Duration duration = Duration(seconds: seconds);
+    return [
+      if (duration.inHours > 0) '${duration.inHours}h',
+      if (duration.inMinutes.remainder(60) > 0)
+        '${duration.inMinutes.remainder(60)}m',
+      '${duration.inSeconds.remainder(60)}s',
+    ].join(' ');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,25 +53,82 @@ class CoursePlayerView extends GetView<CoursePlayerController> {
                 final module = playerController.course.modules[index];
                 return Obx(
                   () => ListTile(
-                    title: Text(module.title),
-                    subtitle: Text(module.description),
+                    title: Text(
+                      module.title,
+                      style: const TextStyle(
+                        color: primaryTextColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    subtitle: Text(
+                      module.description,
+                      style: const TextStyle(
+                        color: secondaryTextColor,
+                        fontSize: 14,
+                      ),
+                    ),
                     tileColor:
                         playerController.currentModuleIndex.value == index
-                            ? primaryColor.withOpacity(.2)
+                            ? Colors.grey.withOpacity(.2)
                             : Colors.white,
                     onTap: () {
                       // Navigate to the selected module
                       playerController.currentModuleIndex.value = index;
                       playerController.updateVideoPlayer();
                     },
+                    // Bookmarks icon [shows each module's bookmarks]
                     trailing: playerController.currentModuleIndex.value == index
-                        ? IconButton(
-                            onPressed: () {
-                              var a =
-                                  playerController.getModuleBookmarks(module.id);
-                              print(a.map((e) => e.positionInSeconds));
+                        ? GestureDetector(
+                            onTap: () {
+                              var a = playerController
+                                  .getModuleBookmarks(module.id);
+                              //  print(a.map((e) => e.positionInSeconds));
+                              a.isNotEmpty
+                                  ? Get.defaultDialog(
+                                      title: 'Bookmarks for \n${module.title}',
+                                      content: SizedBox(
+                                        height: 300,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              for (var bookmark in a)
+                                                ListTile(
+                                                  title: Text(
+                                                    'Bookmark - ${formatDuration(bookmark.positionInSeconds)}',
+                                                  ),
+                                                  onTap: () {
+                                                    playerController
+                                                        .seekToSpecicTime(bookmark
+                                                            .positionInSeconds);
+                                                    Get.back();
+                                                  },
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : Get.snackbar(
+                                      'No Bookmarks',
+                                      'There are no bookmarks for this module.',
+                                      backgroundColor: Colors.white,
+                                      snackPosition: SnackPosition.BOTTOM,
+                                    );
                             },
-                            icon: const Icon(Icons.bookmarks))
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              padding: const EdgeInsets.all(12),
+                              child: const Icon(
+                                Icons.bookmarks,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
                         : const SizedBox(),
                   ),
                 );
